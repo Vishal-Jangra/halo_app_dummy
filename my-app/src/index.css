@@ -5,9 +5,74 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Light Theme Variables (Default) */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+  --primary-color: #007bff;
+  --primary-color-hover: #0056b3;
+  --button-text-color: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #ced4da;
+  --input-focus-border: #80bdff;
+  --input-focus-shadow: rgba(0, 123, 255, 0.25);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --link-color: #007bff;
+  --link-hover-color: #0056b3;
+  --table-header-bg: #e9ecef;
+  --table-header-text: #495057;
+  --table-row-hover-bg: #f1f1f1;
+  --app-header-bg: #282c34;
+  --app-header-text: #ffffff;
+  --app-header-border: #61dafb;
+  --tab-inactive-color: #495057;
+  --tab-active-color: #007bff;
+}
+
+/* Dark Theme Variables */
+.dark-mode {
+  --bg-primary: #1a1a2e; /* Dark blue/purple */
+  --bg-secondary: #162447; /* Slightly lighter dark blue */
+  --bg-tertiary: #223055; /* Even lighter for cards/modals if needed */
+  --text-primary: #e0e0e0; /* Light grey for primary text */
+  --text-secondary: #b0b0b0; /* Medium grey for secondary text */
+  --text-muted: #888888; /* Darker grey for muted text */
+  --border-color: #455a7a; /* Muted blue for borders */
+  --primary-color: #1f4068; /* Darker primary blue */
+  --primary-color-hover: #295285; /* Hover for primary */
+  --button-text-color: #e0e0e0; /* Text on primary buttons */
+  --input-bg: #2a3b5f; /* Dark input background */
+  --input-border: #455a7a;
+  --input-focus-border: #6b8eba;
+  --input-focus-shadow: rgba(107, 142, 186, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.3); /* Darker shadow */
+  --link-color: #61dafb; /* Light blue for links, like React logo */
+  --link-hover-color: #82eaff;
+  --table-header-bg: #1f4068; /* Dark blue for table header */
+  --table-header-text: #e0e0e0;
+  --table-row-hover-bg: #2a3b5f;
+  --app-header-bg: #162447; /* Darker header for dark mode */
+  --app-header-text: #e0e0e0;
+  --app-header-border: #1f4068; /* Match darker primary */
+  --tab-inactive-color: #b0b0b0;
+  --tab-active-color: #61dafb; /* Light blue for active tab in dark mode */
+}
+
+/* Apply base background and text color */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }

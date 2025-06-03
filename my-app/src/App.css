@@ -1,73 +1,128 @@
 /* General App Styling */
 .App {
-  text-align: center; /* Centering for the main app container, can be adjusted */
+  text-align: center;
+  min-height: 100vh; /* Ensure app div takes full height */
+  background-color: var(--bg-primary); /* Use CSS variable */
+  color: var(--text-primary); /* Use CSS variable */
 }
 
 .App-header {
-  background-color: #282c34; /* Dark background for header */
+  background-color: var(--app-header-bg); /* Use CSS variable */
   padding: 20px;
-  color: white;
-  margin-bottom: 20px; /* Add some space below the header */
-  border-bottom: 3px solid #61dafb; /* Accent border */
+  color: var(--app-header-text); /* Use CSS variable */
+  margin-bottom: 20px;
+  border-bottom: 3px solid var(--app-header-border); /* Use CSS variable */
+  transition: background-color 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease; /* Smooth transition */
 }
 
 .App-header h1 {
-  margin: 0; /* Remove default h1 margin */
-  font-size: 2rem; /* Adjust header font size */
+  margin: 0;
+  font-size: 2rem;
 }
 
-.App-content {
-  padding: 20px;
-  text-align: left; /* Align content to the left for typical app layouts */
+.theme-toggle-button {
+  /* Basic styling for the button, can be enhanced */
+  border-width: 2px;
+}
+
+.App-content-body { /* Renamed from App-content for clarity */
+  padding: 0 20px 20px 20px; /* Adjusted padding */
+  text-align: left;
+  background-color: var(--bg-primary); /* Ensure content area background matches */
 }
 
 /* Styling for react-bootstrap Tabs */
-.nav-tabs .nav-link {
-  color: #495057; /* Standard text color for inactive tabs */
+.main-tabs .nav-link { /* Target specific tabs if needed */
+  color: var(--tab-inactive-color); /* Use CSS variable */
+  background-color: transparent; /* Ensure no conflicting background */
+  border-bottom-color: var(--border-color) !important; /* Override Bootstrap if necessary */
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-.nav-tabs .nav-link.active {
-  color: #007bff; /* Bootstrap primary color for active tab */
+.main-tabs .nav-link.active {
+  color: var(--tab-active-color); /* Use CSS variable */
   font-weight: bold;
+  background-color: var(--bg-secondary); /* Active tab background */
+  border-color: var(--tab-active-color) var(--tab-active-color) var(--bg-secondary) !important; /* Match active tab color */
 }
 
-/* Ensure container in App.js for tabs has some top margin if header is fixed or very prominent */
-/* The Container in App.js already has mt-3, which is good. */
+.main-tabs .tab-content {
+  background-color: var(--bg-secondary); /* Background for tab content area */
+  color: var(--text-primary);
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 0.25rem 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
 
-/* General improvements for readability and spacing */
-body {
+
+/* General improvements from previous step, now using CSS variables */
+body { /* This is mostly in index.css now, but App.css can override if needed */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  color: #333;
-  background-color: #f4f7f6; /* Light off-white background for the body */
+  /* color and background-color are set in index.css using variables */
 }
 
-/* Add some default margin to bootstrap rows or cols if needed globally,
-   but often better to do this contextually. For now, rely on mt-3, mb-3 etc.
-   utility classes from Bootstrap used within components.
-*/
-
-/* Example of a global utility class if needed */
-.content-section {
+.content-section { /* Example class, if used */
   padding: 20px;
   margin-bottom: 20px;
-  background-color: #ffffff; /* White background for content sections */
+  background-color: var(--bg-secondary); /* Use CSS variable */
+  color: var(--text-primary); /* Use CSS variable */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for content sections */
+  box-shadow: 0 2px 4px var(--shadow-color); /* Use CSS variable */
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Adjusting Filter panel toggle button for better visibility/placement if needed */
-/* The default placement via className="mb-3" on the button in Filter.js is reasonable */
-
-/* Table styling is mostly handled by react-bootstrap and Table.css */
-/* Ensure Filter.css provides smooth animation */
-
-/* Global link styling (if any links outside components) */
+/* Global link styling */
 a {
-  color: #007bff;
+  color: var(--link-color); /* Use CSS variable */
 }
 
 a:hover {
-  color: #0056b3;
+  color: var(--link-hover-color); /* Use CSS variable */
   text-decoration: none;
+}
+
+/* Ensure Bootstrap components pick up variables where possible */
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--button-text-color);
+}
+.btn-primary:hover {
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
+}
+.btn-secondary {
+  background-color: var(--text-muted); /* Example for secondary */
+  border-color: var(--text-muted);
+  color: var(--button-text-color);
+}
+.btn-secondary:hover {
+  background-color: var(--text-secondary);
+  border-color: var(--text-secondary);
+}
+
+/* Forms */
+.form-control {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+}
+.form-control:focus {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 0.2rem var(--input-focus-shadow);
+}
+.form-check-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.form-label {
+  color: var(--text-secondary);
 }

@@ -1,90 +1,205 @@
 .filter-panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out; /* Smoother transition */
-  background-color: #f8f9fa;
-  padding: 0 20px; /* Add horizontal padding, vertical will be added when open */
-  border-radius: 0.3rem; /* Slightly larger radius */
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  margin-bottom: 1rem; /* Add some space below the filter panel when it's open */
+  position: fixed; /* Changed from relative/static to fixed */
+  left: 0;
+  top: 0; /* Assuming it starts from the very top of the viewport */
+  bottom: 0;
+  width: 300px; /* Define a width for the side panel */
+  max-width: 80%; /* Max width for smaller screens */
+  transform: translateX(-100%); /* Start off-screen to the left */
+  transition: transform 0.3s ease-in-out; /* Only transition transform */
+  background-color: var(--bg-secondary);
+  padding: 20px; /* Consistent padding */
+  box-shadow: 2px 0 5px var(--shadow-color); /* Shadow on the right side */
+  z-index: 1020; /* Ensure it's above most content, below modals (Bootstrap modal z-index is 1050+) */
+  overflow-y: auto; /* Allow scrolling within the panel if content is tall */
+  border-right: 1px solid var(--border-color); /* Add a border to the right */
 }
 
 .filter-panel.open {
-  max-height: 1200px; /* Increased to ensure content fits, adjust if necessary */
-  padding: 20px 20px; /* Vertical padding when open */
-  border: 1px solid #dee2e6;
+  transform: translateX(0); /* Slide in from the left */
+  /* max-height and other properties related to vertical collapse are no longer needed */
 }
 
-/* Style for react-tagsinput */
+/* react-tagsinput styling */
 .react-tagsinput {
-  border: 1px solid #ced4da;
+  border: 1px solid var(--input-border);
   border-radius: 0.25rem;
-  padding: 6px; /* Adjusted padding */
+  padding: 6px;
   width: 100%;
-  background-color: #fff; /* Ensure background is white */
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .react-tagsinput-input {
   border: none;
   outline: none;
-  width: auto; /* Allow input to size dynamically */
-  min-width: 150px; /* Ensure it's usable when empty */
-  margin: 0;
+  width: auto;
+  min-width: 150px;
+  background-color: transparent;
+  color: var(--text-primary);
 }
 
 .react-tagsinput-tag {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
   border-radius: 0.2rem;
-  padding: 0.3em 0.7em; /* Slightly more padding */
+  padding: 0.3em 0.7em;
   margin-right: 0.4em;
-  display: inline-block; /* Ensure tags flow well */
-  margin-bottom: 4px; /* Space for tags if they wrap */
+  display: inline-block;
+  margin-bottom: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Ensure react-datepicker input takes full width like other form controls */
+/* react-datepicker input styling */
 .react-datepicker-wrapper {
   width: 100%;
 }
 
-.react-datepicker__input-container input {
+.react-datepicker__input-container input,
+.react-datepicker__input-container .form-control {
   width: 100%;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
+  color: var(--text-primary);
+  background-color: var(--input-bg);
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--input-border);
   border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.3s ease, color 0.3s ease;
 }
 
-.react-datepicker__input-container input:focus {
-  color: #495057;
-  background-color: #fff;
-  border-color: #80bdff;
+.react-datepicker__input-container input:focus,
+.react-datepicker__input-container .form-control:focus {
+  color: var(--text-primary);
+  background-color: var(--input-bg);
+  border-color: var(--input-focus-border);
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem var(--input-focus-shadow);
 }
 
-/* Consistent margin for form groups within the filter panel */
+/* Dark mode specific styles for react-datepicker */
+.dark-mode .react-datepicker {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.dark-mode .react-datepicker__header {
+  background-color: var(--bg-tertiary);
+  border-bottom-color: var(--border-color);
+}
+.dark-mode .react-datepicker__day-name,
+.dark-mode .react-datepicker__day,
+.dark-mode .react-datepicker__time-name {
+  color: var(--text-primary);
+}
+.dark-mode .react-datepicker__current-month,
+.dark-mode .react-datepicker-time__header,
+.dark-mode .react-datepicker-year-header {
+  color: var(--text-primary);
+}
+.dark-mode .react-datepicker__day:hover,
+.dark-mode .react-datepicker__month-text:hover,
+.dark-mode .react-datepicker__quarter-text:hover,
+.dark-mode .react-datepicker__year-text:hover {
+  background-color: var(--bg-tertiary);
+}
+.dark-mode .react-datepicker__day--selected,
+.dark-mode .react-datepicker__day--in-selecting-range,
+.dark-mode .react-datepicker__day--in-range,
+.dark-mode .react-datepicker__month--selected,
+.dark-mode .react-datepicker__month--in-selecting-range,
+.dark-mode .react-datepicker__month--in-range,
+.dark-mode .react-datepicker__quarter--selected,
+.dark-mode .react-datepicker__quarter--in-selecting-range,
+.dark-mode .react-datepicker__quarter--in-range,
+.dark-mode .react-datepicker__year--selected,
+.dark-mode .react-datepicker__year--in-selecting-range,
+.dark-mode .react-datepicker__year--in-range {
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
+}
+.dark-mode .react-datepicker__day--disabled,
+.dark-mode .react-datepicker__month-text--disabled,
+.dark-mode .react-datepicker__quarter-text--disabled,
+.dark-mode .react-datepicker__year-text--disabled {
+  color: var(--text-muted);
+}
+.dark-mode .react-datepicker__navigation-icon::before {
+    border-color: var(--text-primary);
+}
+
+/* Consistent margin for form groups */
 .filter-panel .form-group {
-  margin-bottom: 1.25rem; /* Increased margin for better spacing */
+  margin-bottom: 1.25rem;
+}
+.filter-panel .form-label {
+  color: var(--text-secondary);
 }
 
-/* Ensure select components (react-select) also have consistent spacing and appearance */
-.filter-panel .css-yk16xz-control, /* Specific to react-select default classes, might need adjustment if class names change */
-.filter-panel .css-1pahdxg-control {
-  border-radius: 0.25rem;
+/* react-select styling for dark mode (from previous step) */
+.dark-mode .css-yk16xz-control,
+.dark-mode .css-1pahdxg-control {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
 }
-
-.filter-panel .css-g1d714-ValueContainer {
-   padding: 2px 8px; /* Adjust padding for react-select */
+.dark-mode .css-1hwfws3 {
+    color: var(--text-primary) !important;
+}
+.dark-mode .css-1wa3eu0-placeholder,
+.dark-mode .css-1u9des2-placeholder {
+  color: var(--text-muted) !important;
+}
+.dark-mode .css-26l3qy-menu {
+  background-color: var(--bg-secondary) !important;
+}
+.dark-mode .css-1n7v3ny-option {
+  background-color: var(--bg-tertiary) !important;
+}
+.dark-mode .css-9gakcf-option {
+  background-color: var(--primary-color) !important;
+  color: var(--button-text-color) !important;
+}
+.dark-mode .css-1gl4k7y {
+  background-color: var(--primary-color) !important;
+}
+.dark-mode .css-12jo7m5 {
+  color: var(--button-text-color) !important;
+}
+.dark-mode .css-xb97g8 {
+    color: var(--button-text-color) !important;
+}
+.dark-mode .css-xb97g8:hover {
+    background-color: var(--primary-color-hover) !important;
+    color: var(--button-text-color) !important;
+}
+.dark-mode .css-1s2u09g-control {
+    border-color: var(--input-focus-border) !important;
+    box-shadow: 0 0 0 1px var(--input-focus-border) !important;
 }
 
 /* Spacing for the filter action buttons */
 .filter-panel .row:last-child > .col {
-  margin-top: 1rem; /* Add some space above the action buttons */
+  margin-top: 1rem;
+}
+
+/* Optional: Add an overlay for the rest of the page when filter is open */
+.filter-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1019; /* Below filter panel, above other content */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.filter-overlay.open {
+  opacity: 1;
+  visibility: visible;
 }
