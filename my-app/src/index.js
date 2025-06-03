@@ -7,10 +7,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { ModuleRegistry, AllCommunityModules } from 'ag-grid-community';
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community'; // Singular form
 
 // Register AG Grid community modules
-ModuleRegistry.registerModules(AllCommunityModules);
+ModuleRegistry.registerModules([AllCommunityModule]); // Singular form, wrapped in an array
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
