@@ -1,53 +1,79 @@
 import React, { useState, useMemo } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap'; // Added Form
 import Filter from '../components/Filter';
-import AppTable from '../components/Table';
+import AgGridTable from '../components/AgGridTable'; // Import AgGridTable
 
-// Specific dummy data and columns for LandPage
-const landPageColumns = [
-  { Header: 'Tract ID', accessor: 'tractId' },
-  { Header: 'Grantor', accessor: 'grantor' },
-  { Header: 'Grantee', accessor: 'grantee' },
-  { Header: 'TRS', accessor: 'trs' },
-  { Header: 'Recorded Date', accessor: 'recordedDate' },
-  { Header: 'Acres', accessor: 'acres', Cell: ({ value }) => `${value.toLocaleString()}` },
-];
+// Utility to generate more data
+const generateMoreData = (count, schemaCreator) => {
+  const data = [];
+  for (let i = 0; i < count; i++) {
+    data.push(schemaCreator(i));
+  }
+  return data;
+};
 
-const landPageData = [
-  { tractId: 'LND-001', grantor: 'Smith Family Trust', grantee: 'Big Oil Corp', trs: 'T1N R2E S3', recordedDate: '2022-01-15', acres: 160 },
-  { tractId: 'LND-002', grantor: 'Jane Doe', grantee: 'Energy Inc.', trs: 'T2N R1W S10', recordedDate: '2021-11-30', acres: 320 },
-  { tractId: 'LND-003', grantor: 'John Johnson Estate', grantee: 'Big Oil Corp', trs: 'T1S R3E S22', recordedDate: '2023-03-01', acres: 80 },
-  { tractId: 'LND-004', grantor: 'Green Pastures LLC', grantee: 'Independent Producer', trs: 'T3N R1E S7', recordedDate: '2020-05-20', acres: 640 },
-  { tractId: 'LND-005', grantor: 'Robert King', grantee: 'Energy Inc.', trs: 'T1N R2E S4', recordedDate: '2022-08-10', acres: 40 },
-];
+// Schema for LandPage data
+const landSchema = (index) => ({
+  id: index + 1,
+  tractId: `LND-${String(index + 1).padStart(3, '0')}`,
+  county: `County ${(index % 20) + 1}`, // More varied counties
+  trs: `T${(index % 15) + 1}N R${(index % 8) + 1}W S${(index % 30) + 1}`,
+  grantor: `Grantor Energy Partners ${String.fromCharCode(65 + (index % 26))}`, // Cycle through A-Z
+  grantee: `Big Resource Co. ${(index % 10) + 1}`,
+  recordedDate: new Date(2022, (index % 12), (index % 28) + 1).toLocaleDateString(),
+  acres: (Math.floor(Math.random() * 50) + 1) * 40, // Random acres in multiples of 40
+});
 
 function LandPage() {
   const [filters, setFilters] = useState({});
+  const [quickFilterText, setQuickFilterText] = useState('');
 
-  // For now, actual filtering of data based on 'filters' is not implemented here.
-  // The Table component's own global search will work on the passed data.
-  // This 'handleFilterChange' is a placeholder for future, more complex filtering logic.
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     console.log('LandPage Filters updated:', newFilters);
-    // In a real scenario, you might filter landPageData here based on newFilters
-    // and pass the filtered data to AppTable.
-    // For now, we pass all data and let AppTable's global filter work.
+    // Future: Apply these filters to rowData if not handled by AG Grid's column filters directly
   };
 
-  const tableColumns = useMemo(() => landPageColumns, []);
-  const tableData = useMemo(() => landPageData, []);
+  const columnDefs = useMemo(() => [
+    { headerName: "ID", field: "id", width: 80, sort: 'asc' },
+    { headerName: "Tract ID", field: "tractId", width: 120 },
+    { headerName: "County", field: "county", minWidth: 150, filter: 'agTextColumnFilter' }, // Example of specific filter
+    { headerName: "TRS", field: "trs", minWidth: 150 },
+    { headerName: "Grantor", field: "grantor", minWidth: 220 },
+    { headerName: "Grantee", field: "grantee", minWidth: 200 },
+    { headerName: "Rec. Date", field: "recordedDate", minWidth: 120 },
+    { headerName: "Acres", field: "acres", width: 100, filter: 'agNumberColumnFilter',
+      valueFormatter: params => params.value.toLocaleString() // Format number
+    },
+  ], []);
+
+  const rowData = useMemo(() => generateMoreData(150, landSchema), []); // Generate 150 rows
 
   return (
     <Container fluid>
-      <Row>
-        <Col md={12}> {/* Filter can be md={3} and Table md={9} for a side-by-side layout if preferred */}
-          <Filter onFilterChange={handleFilterChange} />
+      {/* Filter toggle button is part of Filter component itself now */}
+      <Filter onFilterChange={handleFilterChange} />
+
+      <Row className="mt-3 mb-3">
+        <Col md={6} lg={4}> {/* Adjust width as needed */}
+          <Form.Control
+            type="search"
+            placeholder="Quick Search Table..."
+            value={quickFilterText}
+            onChange={(e) => setQuickFilterText(e.target.value)}
+            className="table-quick-filter-input" // Optional: for specific styling
+          />
         </Col>
       </Row>
-      <Row className="mt-3">
+
+      {/* AgGridTable replaces the old table */}
+      <Row>
         <Col md={12}>
-          <AppTable columns={tableColumns} data={tableData} />
+          <AgGridTable
+            columnDefs={columnDefs}
+            rowData={rowData}
+            quickFilterText={quickFilterText}
+          />
         </Col>
       </Row>
     </Container>
