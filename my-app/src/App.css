@@ -1,0 +1,73 @@
+/* General App Styling */
+.App {
+  text-align: center; /* Centering for the main app container, can be adjusted */
+}
+
+.App-header {
+  background-color: #282c34; /* Dark background for header */
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px; /* Add some space below the header */
+  border-bottom: 3px solid #61dafb; /* Accent border */
+}
+
+.App-header h1 {
+  margin: 0; /* Remove default h1 margin */
+  font-size: 2rem; /* Adjust header font size */
+}
+
+.App-content {
+  padding: 20px;
+  text-align: left; /* Align content to the left for typical app layouts */
+}
+
+/* Styling for react-bootstrap Tabs */
+.nav-tabs .nav-link {
+  color: #495057; /* Standard text color for inactive tabs */
+}
+
+.nav-tabs .nav-link.active {
+  color: #007bff; /* Bootstrap primary color for active tab */
+  font-weight: bold;
+}
+
+/* Ensure container in App.js for tabs has some top margin if header is fixed or very prominent */
+/* The Container in App.js already has mt-3, which is good. */
+
+/* General improvements for readability and spacing */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f7f6; /* Light off-white background for the body */
+}
+
+/* Add some default margin to bootstrap rows or cols if needed globally,
+   but often better to do this contextually. For now, rely on mt-3, mb-3 etc.
+   utility classes from Bootstrap used within components.
+*/
+
+/* Example of a global utility class if needed */
+.content-section {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff; /* White background for content sections */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for content sections */
+}
+
+/* Adjusting Filter panel toggle button for better visibility/placement if needed */
+/* The default placement via className="mb-3" on the button in Filter.js is reasonable */
+
+/* Table styling is mostly handled by react-bootstrap and Table.css */
+/* Ensure Filter.css provides smooth animation */
+
+/* Global link styling (if any links outside components) */
+a {
+  color: #007bff;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: none;
+}

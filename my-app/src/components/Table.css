@@ -1,0 +1,84 @@
+.app-table th, .app-table td {
+  padding: 0.6rem 0.75rem; /* Adjusted padding for a bit more space */
+  vertical-align: middle;
+  font-size: 0.9rem; /* Slightly smaller font for more data density if needed */
+}
+
+.app-table th {
+  cursor: pointer;
+  background-color: #e9ecef; /* Slightly different shade for header */
+  color: #495057; /* Darker text for header contrast */
+  font-weight: 600; /* Bolder header text */
+  white-space: nowrap; /* Prevent header text from wrapping */
+}
+
+.app-table th:hover {
+  background-color: #dee2e6;
+}
+
+.app-table tbody tr:hover {
+  background-color: #f8f9fa; /* Lighter hover for rows */
+}
+
+.app-table td[style*="cursor: pointer"]:hover {
+  background-color: #e2e6ea; /* Highlight cell on hover when clickable for copy */
+}
+
+
+/* Styling for the global search input */
+.table-search-input { /* This class is not currently used in Table.js, GlobalFilter uses InputGroup */
+  margin-bottom: 1rem;
+  max-width: 350px;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+/* Ensure InputGroup for global filter has some margin */
+.input-group.mb-3 { /* Bootstrap class used in GlobalFilter */
+  margin-bottom: 1rem !important; /* Ensure spacing below search */
+}
+
+
+/* Copied alert styling (using Bootstrap Alert, but can be customized if needed) */
+/* Example: Ensure it's noticeable */
+.alert-success { /* Bootstrap class */
+  position: fixed;
+  top: 70px; /* Position below a potentially fixed header */
+  right: 20px;
+  z-index: 1055; /* High z-index */
+  min-width: 250px;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+
+/* Selected cell info display */
+.selected-cell-info { /* This class is not currently used, was in a commented out section */
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  font-size: 0.9em;
+  border: 1px solid #dee2e6;
+}
+
+/* Ensure table is responsive */
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem; /* Add some space below the table */
+}
+
+/* Style for sort icons */
+.app-table th span {
+  margin-left: 0.5rem;
+  font-size: 0.8em;
+}
+
+/* No data message */
+.text-center { /* Bootstrap class */
+  padding: 20px;
+  color: #6c757d; /* Muted text color */
+}
