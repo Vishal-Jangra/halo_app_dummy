@@ -7,6 +7,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { ModuleRegistry, AllCommunityModules } from 'ag-grid-community';
+
+// Register AG Grid community modules
+ModuleRegistry.registerModules(AllCommunityModules);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
